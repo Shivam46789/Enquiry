@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Secure Survey</title>
+
+<style>
+/* Modern Form Styling */
+:root {
+  --primary: #2e7d32; /* Deeper green for better contrast */
+  --primary-light: #4caf50;
+  --background: #92db9b4c;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --success: #4caf50;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--background);
+  margin: 0;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 680px;
+  margin: 40px auto;
+  background: var(--surface);
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle decorative element */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 16px 16px 0 0;
+}
+
+h2 {  margin-top: 0;
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 1.75rem;
+}
+
+/* Input styling */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 12px 0 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 1rem;
+  background: #fafafa;
+  transition: var(--transition);
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  background: var(--surface);
+}
+
+/* Placeholder styling */
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+/* Button styling */
+button {
+  padding: 12px 28px;
+  margin: 19px;
+  width: 40%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: 0 2px 4px rgba(46, 125, 50, 0.2);}
+
+button:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Progress bar modernization */
+.progress {
+  height: 8px;
+  background: var(--border);
+  margin-bottom: 28px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(45deg, #2e7d32, #6aff78, #aaffb5);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* Page visibility */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+    align-self: center;
+    justify-content: center; 
+    justify-self: center;
+    margin: 20px;
+    padding: 24px;
+  }  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  button {
+    width: 40%;
+    margin: 12px 12px;
+    
+  }
+}
+
+
+/* ===== APPLE iOS STYLE ===== */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #393;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 16px;
+  margin: 8px 0 20px;
+  border-radius: 14px;
+  border: 2px solid #2e7d32;
+  background: #92db9b4c;
+  color:#2e7d32;
+  font-size: 16px;
+}
+
+input:focus, textarea:focus {
+  outline: #2e7d32;
+  background: #e5e5ea;
+}
+
+button:hover {
+  color:#2e7d32;
+  background: #fff;
+  border:2px solid #2e7d32;
+}
+
+.progress {
+  height: 6px;
+  background: #e5e5ea;
+  margin-bottom: 25px;
+  border-radius: 20px;
+}
+
+.bar {
+  height: 100%;
+  background: linear-gradient(45deg, #b0eab0, #6ad36c, #3bb23e, #3bb23e, #2e7d32 );
+  border-radius: 50px;
+}
+
+label spam, h2 spam{
+    color:#ff000a;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="progress"><div class="bar" id="bar"></div></div>
+
+<form id="surveyForm">
+
+<!-- PAGE 1 -->
+<div class="page active">
+<h2>I have faced problems as below:</h2>
+
+<label>Name<spam>*</spam></label>
+<input id="name" placeholder="John Smith" required>
+
+<label>Date of Birth<spam>*</spam></label>
+<input type="date" id="dob" required>
+
+<button type="button" onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+<h2>Problem 1<spam>*</spam></h2>
+
+<label>Type the problem</label>
+<textarea id="p1" required></textarea>
+
+<label>Solved? How?</label>
+<textarea id="p1s" required></textarea>
+
+<button type="button" onclick="prev()">Back</button>
+<button type="button" onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+<h2>Problem 2</h2>
+
+<label>Type the problem</label>
+<textarea id="p2"></textarea>
+
+<label>Solved? How?</label>
+<textarea id="p2s"></textarea>
+
+<button type="button" onclick="prev()">Back</button>
+<button type="button" onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+<h2>Problem 3</h2>
+
+<label>Type the problem</label>
+<textarea id="p3"></textarea>
+
+<label>Solved? How?</label>
+<textarea id="p3s"></textarea>
+
+<button type="button" onclick="prev()">Back</button>
+<button type="button" onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page">
+<h2>Help Needed</h2>
+
+<label>What help you want?</label>
+<textarea id="help"></textarea>
+
+<label>Add your problems if you have more</label>
+<textarea id="more"></textarea>
+
+<button type="button" onclick="prev()">Back</button>
+<button type="submit">Submit</button>
+</div>
+
+</form>
+</div>
+
+<script>
+/* ---------------- PAGE NAV ---------------- */
+
+let current=0;
+const pages=document.querySelectorAll(".page");
+const bar=document.getElementById("bar");
+
+function showPage(i){
+  pages.forEach(p=>p.classList.remove("active"));
+  pages[i].classList.add("active");
+  bar.style.width=((i+1)/pages.length)*100+"%";
+}
+
+function next(){
+  if(!pages[current].querySelector("input:invalid, textarea:invalid")){
+    current++;
+    showPage(current);
+  }else{
+    alert("Please fill required fields");
+  }
+}
+
+function prev(){
+  current--;
+  showPage(current);
+}
+
+/* ---------------- CONFIG ---------------- */
+
+/* 🔑 PUBLIC KEY */
+const PUBLIC_KEY=`-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsL7dlPPhvHs21pfs/x/O
+HdaAFhwZ6jiunnS68v5XN72+bs0CkiPZtSR4Nc+DMStmFLCLlso0KPuLXQjp5oMZ
+w82JkfOqHC9xP7YaqMgQgEZpLXg3Q7QoAJKiJ/6isHhDB2JlZZt4ck+/u/YCYcXU
+TrfPY/rplmsoRnlGOuWnUP3zfqh1WQqM6iv+yqnhOZ29qj2OqpuTqIQvK+3SdOH3
+b9l1/rP0B1LWzEKY/2EOse5EFeP+d1W7R5tuX2/PMXMRA31vn7zSK/2TYTbViQcP
+gRkQ/PLxh6bqibk6fLqviczvF83tapU8ISjnelZES9tKfY6tzf6ho2LYpfEyoqZU
+CwIDAQAB
+-----END PUBLIC KEY-----
+`;
+
+/* 🗄️ SUPABASE */
+const SUPABASE_URL="https://gmhmybbmlifteoyikydo.supabase.co";
+const SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtaG15YmJtbGlmdGVveWlreWRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEwMjQ4NjMsImV4cCI6MjA4NjYwMDg2M30.xJAL2GgVPKKlRh_SASzKF8FTqI4hBDz6LF2LKZf9YUY";
+
+/* ---------------- HELPERS ---------------- */
+
+function pemToBuf(pem){
+ const b64=pem.replace(/-----.*-----/g,"").replace(/\s/g,"");
+ const bin=atob(b64);
+ return Uint8Array.from(bin,c=>c.charCodeAt(0));
+}
+
+function b64(buf){
+ return btoa(String.fromCharCode(...new Uint8Array(buf)));
+}
+
+/* ---------------- ENCRYPT ---------------- */
+
+async function encryptHybrid(data){
+
+ const aesKey=await crypto.subtle.generateKey(
+  {name:"AES-GCM",length:256},true,["encrypt"]
+ );
+
+ const iv=crypto.getRandomValues(new Uint8Array(12));
+ const encoded=new TextEncoder().encode(data);
+
+ const encryptedData=await crypto.subtle.encrypt(
+  {name:"AES-GCM",iv},aesKey,encoded
+ );
+
+ const rawKey=await crypto.subtle.exportKey("raw",aesKey);
+
+ const publicKey=await crypto.subtle.importKey(
+  "spki",
+  pemToBuf(PUBLIC_KEY),
+  {name:"RSA-OAEP",hash:"SHA-256"},
+  false,
+  ["encrypt"]
+ );
+
+ const encryptedKey=await crypto.subtle.encrypt(
+  {name:"RSA-OAEP"},publicKey,rawKey
+ );
+
+ return{
+  encrypteddata:b64(encryptedData),
+  encryptedkey:b64(encryptedKey),
+  iv:b64(iv)
+ };
+}
+
+/* ---------------- SUBMIT ---------------- */
+
+document.getElementById("surveyForm")
+.addEventListener("submit",async e=>{
+ e.preventDefault();
+
+ const payload={
+  name:name.value,
+  dob:dob.value,
+  problems:[
+   {problem:p1.value,solution:p1s.value},
+   {problem:p2.value,solution:p2s.value},
+   {problem:p3.value,solution:p3s.value}
+  ],
+  help:help.value,
+  more:more.value,
+  time:new Date().toISOString()
+ };
+
+ const encrypted=await encryptHybrid(
+  JSON.stringify(payload)
+ );
+
+/* ---------- SEND TO SUPABASE ---------- */
+
+ await fetch(`${SUPABASE_URL}/rest/v1/responses`,{
+  method:"POST",
+  headers:{
+   "Content-Type":"application/json",
+   "apikey":SUPABASE_KEY,
+   "Authorization":"Bearer "+SUPABASE_KEY,
+   "Prefer":"return=minimal"
+  },
+  body:JSON.stringify(encrypted)
+ });
+
+ alert("Submitted securely 🔐");
+ location.reload();
+});
+</script>
+
+</body>
+</html>
